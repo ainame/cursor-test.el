@@ -1,4 +1,4 @@
-;;; cursor-test.el --- testing library for cursor position in emacs.
+;;; cursor-test.el --- testing library for cursor position in emacs. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2013 by Satsohi Namai
 
@@ -27,7 +27,6 @@
 
 ;;; Code:
 
-;;-*- lexical-binding: t -*-
 (require 'cl)
 (require 'ert)
 
