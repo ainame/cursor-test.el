@@ -5,7 +5,7 @@
 ;; Author: ainame
 ;; URL: https://github.com/ainame/cursor-test.el
 ;; Version: 0.1.0
-;; Package-Requires: ((cl) (ert))
+;; Package-Requires: ((emacs "24"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -59,9 +59,9 @@ INIT is the initialize value of buffer which is the string. In INIT string,
 you can declare cursor position by `|` which defined at `cursor-test/cursor-char`."
   (cursor-test/setup-test-buffer
    (lambda ()
-      (insert init)
-      (cursor-test/setup-cursor cursor-test/cursor-char)
-      (if exercise (funcall exercise)))))
+     (insert init)
+     (cursor-test/setup-cursor cursor-test/cursor-char)
+     (if exercise (funcall exercise)))))
 
 (defun* cursor-test/compare-buffer (&key compare description expect actual)
   (let* ((expect-point (with-current-buffer expect (point)))
@@ -69,17 +69,17 @@ you can declare cursor position by `|` which defined at `cursor-test/cursor-char
          (result (if (eq compare 'equal)
                      (= expect-point actual-point)
                    (not (= expect-point actual-point)))))
-     (if result
-         t
-       (progn
-         (message (if description
-                      (format "Fail test: %s" description)
-                    "Fail test"))
-         (message (format "[buffer]\n expect: \"%s\"\n actual: \"%s\""
-                          (cursor-test/pretty-format-cursor expect expect-point)
-                          (cursor-test/pretty-format-cursor actual actual-point)))
-         (message (format "[point] expect: %d, actual: %d" expect-point actual-point))
-         nil))))
+    (if result
+        t
+      (progn
+        (message (if description
+                     (format "Fail test: %s" description)
+                   "Fail test"))
+        (message (format "[buffer]\n expect: \"%s\"\n actual: \"%s\""
+                         (cursor-test/pretty-format-cursor expect expect-point)
+                         (cursor-test/pretty-format-cursor actual actual-point)))
+        (message (format "[point] expect: %d, actual: %d" expect-point actual-point))
+        nil))))
 
 (defun* cursor-test/equal (&key description expect actual)
   "`cursor-test/equal` is the assert for equal of cursor position between two buffers.
